@@ -37,27 +37,15 @@ function calculateVerifier(input: string) {
   return restOfSumDividedByLength < MIN_VERIFIER ? 0 : NUMBER_OF_DIGITS_OF_CPF - restOfSumDividedByLength;
 }
 
-function calculateVerifiers(input: string) {
-  const digitsToCalculateFirstVerifier = input.slice(0, 9);
-  const firstVerifier = calculateVerifier(digitsToCalculateFirstVerifier);
-  const digitsToCalculateSecondVerifier = `${digitsToCalculateFirstVerifier}${firstVerifier}`
-  const secondVerifier = calculateVerifier(digitsToCalculateSecondVerifier);
-
-  return {
-    first: firstVerifier,
-    second: secondVerifier
-  }
-}
-
 export function cpfValidation(rawCpfString?: string | null) {
   if (!isValidInput(rawCpfString)) return false;
   const cpfWithoutDotsAndSigns = removeSignsAndDots(rawCpfString!);
   if (!hasValidLength(cpfWithoutDotsAndSigns.length)) return false;
   if (isAllEntriesSameDigits(cpfWithoutDotsAndSigns)) return false;
 
-  const { first, second } = calculateVerifiers(cpfWithoutDotsAndSigns);
+  let parsedCpf = cpfWithoutDotsAndSigns.slice(0, 9);
+  parsedCpf += calculateVerifier(parsedCpf);
+  parsedCpf += calculateVerifier(parsedCpf);
 
-  const verificationDigits = `${first}${second}`
-  const lastTwoCpfDigits = cpfWithoutDotsAndSigns.slice(-2);
-  return verificationDigits == lastTwoCpfDigits;
+  return parsedCpf.slice(-2) === cpfWithoutDotsAndSigns.slice(-2);
 }
