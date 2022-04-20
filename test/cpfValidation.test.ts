@@ -40,3 +40,7 @@ test('should return false if cpf was sent with non numeric digits', () => {
 test('should return true if cpf was sent with one of its verifiers as 0', () => {
   expect(cpfValidation('91632614804')).toBe(true);
 })
+
+test('should return true if cpf was sent with dots and signs', () => {
+  expect(cpfValidation('449.760.878-67')).toBe(true)
+})
