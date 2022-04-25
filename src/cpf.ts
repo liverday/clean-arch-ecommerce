@@ -1,6 +1,9 @@
 const NUMBER_OF_DIGITS_OF_CPF = 11
 const MIN_VERIFIER = 2;
-const ONLY_NUMBERS_REGEX = /[^\d]/g
+const MIN_VERIFIER_FALLBACK = 0;
+const START_RANGE_VERIFIER_CALCULATION = 0
+const END_RANGE_VERIFIER_CALCULATION = 9;
+const ONLY_NUMBERS_REGEX = /[^\d]/g;
 
 function isValidInput(input?: string | null) {
   return input !== null && input !== undefined
@@ -34,7 +37,7 @@ function calculateVerifier(input: string) {
   const inputAsArray = convertStringToArrayOfChars(input);
   const sumOfInputArray = sumDigits(inputAsArray.map(digit => parseInt(digit)));
   const restOfSumDividedByLength = sumOfInputArray % NUMBER_OF_DIGITS_OF_CPF;
-  return restOfSumDividedByLength < MIN_VERIFIER ? 0 : NUMBER_OF_DIGITS_OF_CPF - restOfSumDividedByLength;
+  return restOfSumDividedByLength < MIN_VERIFIER ? MIN_VERIFIER_FALLBACK : NUMBER_OF_DIGITS_OF_CPF - restOfSumDividedByLength;
 }
 
 export function validate(rawCpfString?: string | null) {
@@ -43,7 +46,7 @@ export function validate(rawCpfString?: string | null) {
   if (!hasValidLength(cpfWithoutDotsAndSigns.length)) return false;
   if (isAllEntriesSameDigits(cpfWithoutDotsAndSigns)) return false;
 
-  let parsedCpf = cpfWithoutDotsAndSigns.slice(0, 9);
+  let parsedCpf = cpfWithoutDotsAndSigns.slice(START_RANGE_VERIFIER_CALCULATION, END_RANGE_VERIFIER_CALCULATION);
   parsedCpf += calculateVerifier(parsedCpf);
   parsedCpf += calculateVerifier(parsedCpf);
 
