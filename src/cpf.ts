@@ -1,5 +1,4 @@
 const NUMBER_OF_DIGITS_OF_CPF = 11
-const MAX_DIGITS_OF_CPF = 14;
 const ONLY_NUMBERS_REGEX = /[^\d]/g;
 const MIN_VERIFIER = 2;
 const MIN_VERIFIER_FALLBACK = 0;
@@ -12,7 +11,7 @@ function isValidInput(input?: string | null) {
 }
 
 function hasValidLength(length: number) {
-  return length >= NUMBER_OF_DIGITS_OF_CPF && length <= MAX_DIGITS_OF_CPF
+  return length === NUMBER_OF_DIGITS_OF_CPF
 }
 
 function removeSignsAndDots(input: string) {
