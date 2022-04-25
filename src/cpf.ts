@@ -7,7 +7,7 @@ function isValidInput(input?: string | null) {
 }
 
 function hasValidLength(length: number) {
-  return length >= 11 || length === 14
+  return length >= 11 && length <= 14
 }
 
 function removeSignsAndDots(input: string) {
@@ -15,7 +15,7 @@ function removeSignsAndDots(input: string) {
 }
 
 function convertStringToArrayOfChars(input: string) {
-  return input.split('');
+  return Array.from(input);
 }
 
 function isAllEntriesSameDigits(input: string) {
@@ -37,7 +37,7 @@ function calculateVerifier(input: string) {
   return restOfSumDividedByLength < MIN_VERIFIER ? 0 : NUMBER_OF_DIGITS_OF_CPF - restOfSumDividedByLength;
 }
 
-export function cpfValidation(rawCpfString?: string | null) {
+export function validate(rawCpfString?: string | null) {
   if (!isValidInput(rawCpfString)) return false;
   const cpfWithoutDotsAndSigns = removeSignsAndDots(rawCpfString!);
   if (!hasValidLength(cpfWithoutDotsAndSigns.length)) return false;
