@@ -22,7 +22,7 @@ function convertStringToArrayOfChars(input: string) {
   return Array.from(input);
 }
 
-function isAllEntriesSameDigits(input: string) {
+function isEqualDigits(input: string) {
   const firstDigit = input[0]
   return convertStringToArrayOfChars(input).every(digit => digit === firstDigit);
 }
@@ -45,11 +45,13 @@ export function validate(rawCpfString?: string | null) {
   if (!isValidInput(rawCpfString)) return false;
   const cpfWithoutDotsAndSigns = removeSignsAndDots(rawCpfString!);
   if (!hasValidLength(cpfWithoutDotsAndSigns.length)) return false;
-  if (isAllEntriesSameDigits(cpfWithoutDotsAndSigns)) return false;
+  if (isEqualDigits(cpfWithoutDotsAndSigns)) return false;
 
-  let parsedCpf = cpfWithoutDotsAndSigns.slice(START_RANGE_VERIFIER_CALCULATION, END_RANGE_VERIFIER_CALCULATION);
-  parsedCpf += calculateVerifier(parsedCpf);
-  parsedCpf += calculateVerifier(parsedCpf);
+  const digitsForValidation = cpfWithoutDotsAndSigns.slice(START_RANGE_VERIFIER_CALCULATION, END_RANGE_VERIFIER_CALCULATION);
+  const firstVerifier = calculateVerifier(digitsForValidation);
+  const lastVerifier = calculateVerifier(digitsForValidation + firstVerifier);
 
-  return parsedCpf.slice(-2) === cpfWithoutDotsAndSigns.slice(-2);
+  const lastTwoDigits = cpfWithoutDotsAndSigns.slice(-2);
+
+  return `${firstVerifier}${lastVerifier}` === lastTwoDigits;
 }
