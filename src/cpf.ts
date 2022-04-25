@@ -1,10 +1,11 @@
 const NUMBER_OF_DIGITS_OF_CPF = 11
 const MAX_DIGITS_OF_CPF = 14;
+const ONLY_NUMBERS_REGEX = /[^\d]/g;
 const MIN_VERIFIER = 2;
 const MIN_VERIFIER_FALLBACK = 0;
 const START_RANGE_VERIFIER_CALCULATION = 0
 const END_RANGE_VERIFIER_CALCULATION = 9;
-const ONLY_NUMBERS_REGEX = /[^\d]/g;
+const SLICE_PATTERN_TO_EXTRACT_VERIFIERS = -2;
 
 function isValidInput(input?: string | null) {
   return input !== null && input !== undefined
@@ -41,6 +42,10 @@ function calculateVerifier(input: string) {
   return restOfSumDividedByLength < MIN_VERIFIER ? MIN_VERIFIER_FALLBACK : NUMBER_OF_DIGITS_OF_CPF - restOfSumDividedByLength;
 }
 
+function extractVerifiers(cpf: string): string {
+  return cpf.slice(SLICE_PATTERN_TO_EXTRACT_VERIFIERS);
+}
+
 export function validate(rawCpfString?: string | null) {
   if (!isValidInput(rawCpfString)) return false;
   const cpfWithoutDotsAndSigns = removeSignsAndDots(rawCpfString!);
@@ -49,9 +54,9 @@ export function validate(rawCpfString?: string | null) {
 
   const digitsForValidation = cpfWithoutDotsAndSigns.slice(START_RANGE_VERIFIER_CALCULATION, END_RANGE_VERIFIER_CALCULATION);
   const firstVerifier = calculateVerifier(digitsForValidation);
-  const lastVerifier = calculateVerifier(digitsForValidation + firstVerifier);
+  const lastVerifier = calculateVerifier(`${digitsForValidation}${firstVerifier}`);
 
-  const lastTwoDigits = cpfWithoutDotsAndSigns.slice(-2);
+  const verifiers = extractVerifiers(cpfWithoutDotsAndSigns);
 
-  return `${firstVerifier}${lastVerifier}` === lastTwoDigits;
+  return `${firstVerifier}${lastVerifier}` === verifiers;
 }
