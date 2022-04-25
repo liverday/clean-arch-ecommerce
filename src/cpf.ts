@@ -1,4 +1,5 @@
 const NUMBER_OF_DIGITS_OF_CPF = 11
+const MAX_DIGITS_OF_CPF = 14;
 const MIN_VERIFIER = 2;
 const MIN_VERIFIER_FALLBACK = 0;
 const START_RANGE_VERIFIER_CALCULATION = 0
@@ -10,7 +11,7 @@ function isValidInput(input?: string | null) {
 }
 
 function hasValidLength(length: number) {
-  return length >= 11 && length <= 14
+  return length >= NUMBER_OF_DIGITS_OF_CPF && length <= MAX_DIGITS_OF_CPF
 }
 
 function removeSignsAndDots(input: string) {
