@@ -4,11 +4,11 @@ import Item from "./Item";
 import OrderItem from "./OrderItem";
 
 export default class Order {
-  readonly cpf: Cpf;  
+  readonly cpf: Cpf;
   private items: OrderItem[] = [];
   coupon?: Coupon;
-  
-  constructor(cpf: string) {
+
+  constructor(cpf: string, readonly issueDate: Date = new Date()) {
     this.cpf = new Cpf(cpf);
   }
 
@@ -17,6 +17,7 @@ export default class Order {
   }
 
   addCoupon(coupon: Coupon) {
+    if (coupon.isExpired(this.issueDate)) return;
     this.coupon = coupon;
   }
 

@@ -1,3 +1,4 @@
+import { addDays, subDays } from "date-fns";
 import Coupon from "../src/Coupon";
 import Item from "../src/Item";
 import Order from "../src/Order";
@@ -17,6 +18,15 @@ test('Should be able to create an Order with 3 items with description, price and
 test('Should be able to create an Order with discount coupon (percentage of total value)', () => {
   const order = new Order('449.760.878.67');
   order.addItem(new Item(1, 'Guitarra', 10), 500);
-  order.addCoupon(new Coupon('VALE50', 50));
+  order.addCoupon(new Coupon('VALE50', 50, addDays(new Date(), 1)));
   expect(order.getTotal()).toBe(2500);
 })
+
+test('Should not add coupon when coupon is expired', () => {
+  const order = new Order('449.760.878.67');
+  order.addItem(new Item(1, 'Guitarra', 10), 500);
+  order.addCoupon(new Coupon('VALE50', 50, subDays(new Date(), 1)));
+
+  expect(order.coupon).toBeFalsy();
+  expect(order.getTotal()).toBe(5000)
+});
