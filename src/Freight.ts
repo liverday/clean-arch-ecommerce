@@ -11,7 +11,7 @@ export default class Freight {
   }
 
   getTotal() {
-    if (this.fare <= this.MIN_FARE) {
+    if (this.fare > 0 && this.fare <= this.MIN_FARE) {
       return this.MIN_FARE;
     }
 
