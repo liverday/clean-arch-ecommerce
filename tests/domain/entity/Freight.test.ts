@@ -1,6 +1,6 @@
-import Dimension from "../src/Dimension";
-import Freight from "../src/Freight";
-import Item from "../src/Item";
+import Dimension from "@domain/entity/Dimension";
+import Freight from "@domain/entity/Freight";
+import Item from "@domain/entity/Item";
 
 test('should calculate freight value based on the items dimensions', () => {
   const freight = new Freight();

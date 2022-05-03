@@ -1,4 +1,4 @@
-import Cpf from '../src/Cpf';
+import Cpf from '@domain/entity/Cpf';
 
 test('should return true if cpf is valid', () => {
   expect(new Cpf('44976087867')).toBeTruthy()

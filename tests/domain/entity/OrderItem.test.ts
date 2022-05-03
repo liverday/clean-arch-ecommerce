@@ -1,5 +1,5 @@
-import Item from "../src/Item";
-import OrderItem from "../src/OrderItem";
+import Item from "@domain/entity/Item";
+import OrderItem from "@domain/entity/OrderItem";
 
 test('should be able to create an order item', () => {
   const orderItem = new OrderItem(new Item(1, 'Guitarra', 500), 10);

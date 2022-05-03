@@ -1,5 +1,5 @@
-import Dimension from '../src/Dimension';
-import Item from '../src/Item';
+import Dimension from '@domain/entity/Dimension';
+import Item from '@domain/entity/Item';
 
 test('should create an item', () => {
   const item = new Item(1, 'Guitarra', 500);
