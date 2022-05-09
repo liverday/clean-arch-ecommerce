@@ -11,7 +11,9 @@
     "strict": true,                                      
     "skipLibCheck": true,
     "paths": {
-      "@domain/*": ["./src/domain/*"]
+      "@domain/*": ["./src/domain/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@application/*": ["./src/application/*"]
     }
   },
   "include": [
