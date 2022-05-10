@@ -11,4 +11,8 @@ export default class InMemoryOrderRepository implements OrderRepository {
     this.orders.push(order);
     return order;
   }
+
+  async count(): Promise<number> {
+    return this.orders.length;
+  }
 }

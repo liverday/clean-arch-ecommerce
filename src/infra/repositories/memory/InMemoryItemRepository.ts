@@ -2,7 +2,11 @@ import Item from "@domain/entity/Item";
 import ItemRepository from "@domain/repositories/ItemRepository";
 
 export default class InMemoryItemRepository implements ItemRepository {
-  private items: Item[] = [];
+  private items: Item[];
+
+  constructor() {
+    this.items = [];
+  }
 
   async findById(id: number): Promise<Item> {
     const item = this.items.find(item => item.idItem === id);
@@ -13,7 +17,7 @@ export default class InMemoryItemRepository implements ItemRepository {
 
     return item;
   }
-  
+
   async save(item: Item): Promise<Item> {
     this.items.push(item);
     return item;
