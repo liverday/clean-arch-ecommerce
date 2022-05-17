@@ -7,7 +7,11 @@ export default class Item {
     readonly price: number,
     readonly dimension?: Dimension,
     readonly weight?: number
-  ) { }
+  ) { 
+    if (this.weight && this.weight < 0) {
+      throw new Error('A negative value is not allowed to item weight');
+    }
+  }
 
   getVolume() {
     if (!this.dimension) return 0;

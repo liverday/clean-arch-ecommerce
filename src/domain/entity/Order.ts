@@ -18,7 +18,14 @@ export default class Order {
     this.code = new OrderCode(issueDate, sequence);
   }
 
+  isDuplicated(item: Item): boolean {
+    return this.items.some(orderItem => orderItem.idItem === item.idItem);
+  }
+
   addItem(item: Item, quantity: number) {
+    if (this.isDuplicated(item)) throw new Error('The item has been already added')
+    if (quantity < 0) throw new Error('The quantity should be greater than 0');
+    
     this.freight.addItem(item, quantity);
     this.items.push(new OrderItem(item.idItem, item.price, quantity));
   }

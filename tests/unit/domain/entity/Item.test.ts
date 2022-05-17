@@ -32,3 +32,7 @@ test('should get 0 volume for a item without dimensions or without weight', () =
   expect(item.dimension).toBeFalsy();
   expect(item.weight).toBeFalsy();
 })
+
+test('should thrown an error when an item weight is negative', () => {
+  expect(() => new Item(1, 'Guitarra', 500, new Dimension(100, 30, 10), -1)).toThrow(new Error('A negative value is not allowed to item weight'));
+})

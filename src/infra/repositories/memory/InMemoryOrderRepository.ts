@@ -15,4 +15,12 @@ export default class InMemoryOrderRepository implements OrderRepository {
   async count(): Promise<number> {
     return this.orders.length;
   }
+
+  async findByCode(code: string): Promise<Order | undefined> {
+    return this.orders.find(order => order.code.code === code)
+  }
+
+  async findAll(): Promise<Order[]> {
+    return this.orders
+  }
 }

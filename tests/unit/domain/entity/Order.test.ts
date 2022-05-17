@@ -34,7 +34,18 @@ test('Should not add coupon when coupon is expired', () => {
 test('should be able to calculate freight when able to it', () => {
   const order = new Order('449.760.878.67', new Date('2022-05-01T13:00:00.000'), 10);
   order.addItem(new Item(1, 'Guitarra', 500, new Dimension(100, 30, 10), 3), 1);
-  order.addItem(new Item(1, 'Câmera', 30, new Dimension(20, 15, 10), 1), 1);
+  order.addItem(new Item(2, 'Câmera', 30, new Dimension(20, 15, 10), 1), 1);
   expect(order.getFreight()).toBe(40);
   expect(order.getTotal()).toBe(570)
+})
+
+test('should throw an error when the quantity is negative', () => {
+  const order = new Order('449.760.878.67', new Date('2022-05-01T13:00:00.000'), 10);
+  expect(() => order.addItem(new Item(1, 'Guitarra', 500, new Dimension(100, 30, 10), 3), -1)).toThrow(new Error('The quantity should be greater than 0'));
+})
+
+test('should throw an error when the item has been added', () => {
+  const order = new Order('449.760.878.67', new Date('2022-05-01T13:00:00.000'), 10);
+  order.addItem(new Item(1, 'Guitarra', 500, new Dimension(100, 30, 10), 3), 1);
+  expect(() => order.addItem(new Item(1, 'Guitarra', 500, new Dimension(100, 30, 10), 3), 1)).toThrow(new Error('The item has been already added'));
 })
