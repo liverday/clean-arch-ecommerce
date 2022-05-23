@@ -1,4 +1,3 @@
-import Order from "@domain/entity/Order";
 import OrderRepository from "@domain/repositories/OrderRepository";
 
 export default class GetOrderByCode {

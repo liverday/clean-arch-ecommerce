@@ -17,6 +17,7 @@ export default class InMemoryOrderRepository implements OrderRepository {
   }
 
   async findByCode(code: string): Promise<Order | undefined> {
+    console.log(this.orders);
     return this.orders.find(order => order.code.code === code)
   }
 
