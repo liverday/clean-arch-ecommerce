@@ -8,7 +8,7 @@ import OrderItem from "./OrderItem";
 
 export default class Order {
   readonly cpf: Cpf;
-  private items: OrderItem[] = [];
+  readonly items: OrderItem[] = [];
   coupon?: OrderCoupon;
   private freight: Freight = new Freight();
   readonly code: OrderCode

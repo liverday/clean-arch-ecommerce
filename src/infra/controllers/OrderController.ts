@@ -1,5 +1,5 @@
-import GetOrderByCode from "@application/GetOrderByCode";
-import GetOrders from "@application/GetOrders";
+import GetOrderByCode from "@application/usecases/GetOrderByCode";
+import GetOrders from "@application/usecases/GetOrders";
 import OrderRepository from "@domain/repositories/OrderRepository";
 import Http, { OK_RESPONSE } from "@infra/http/Http";
 

@@ -1,13 +1,16 @@
 import Order from "@domain/entity/Order";
+import OrderPlaced from "@domain/event/OrderPlaced";
 import CouponRepository from "@domain/repositories/CouponRepository";
 import ItemRepository from "@domain/repositories/ItemRepository";
 import OrderRepository from "@domain/repositories/OrderRepository";
+import Mediator from "@infra/mediator/Mediator";
 
 export default class PlaceOrder {
   constructor(
     private itemRepository: ItemRepository, 
     private orderRepository: OrderRepository, 
-    private couponRepository: CouponRepository
+    private couponRepository: CouponRepository,
+    private mediator: Mediator
   ) {}
 
   async execute (input: Input): Promise<Output> {
@@ -21,11 +24,14 @@ export default class PlaceOrder {
       const coupon = await this.couponRepository.findByCode(input.coupon);
       order.addCoupon(coupon);
     }
+
 		const savedOrder = await this.orderRepository.save(order);
-		const total = savedOrder.getTotal();
-		return {
-			total
-		}
+		
+    await this.mediator.publish(new OrderPlaced(savedOrder.code, savedOrder.items, savedOrder.getFreight(), savedOrder.getTotal(), savedOrder.coupon));
+
+    return {
+      total: savedOrder.getTotal()
+    }
 	}
 }
 

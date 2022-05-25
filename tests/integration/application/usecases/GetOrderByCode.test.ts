@@ -2,14 +2,14 @@ import InMemoryOrderRepository from "@infra/repositories/memory/InMemoryOrderRep
 import Order from '@domain/entity/Order';
 import Item from "@domain/entity/Item";
 import Dimension from "@domain/entity/Dimension";
-import GetOrderByCode from "@application/GetOrderByCode";
+import GetOrderByCode from "@application/usecases/GetOrderByCode";
 
 test('should be able to get an order by code', async () => {
   const orderRepository = new InMemoryOrderRepository();
   const order = new Order("44976087867", new Date('2022-05-17T13:00:00.000'));
-  order.addItem(new Item(1, "Guitarra", 1000, new Dimension(100, 30, 10), 3), 1)
-  order.addItem(new Item(2, "Amplificador", 5000, new Dimension(50, 50, 50), 20), 1)
-  order.addItem(new Item(3, "Cabo", 30, new Dimension(10, 10, 10), 1), 3)
+  order.addItem(new Item(1, "Guitarra", 1000, 10, new Dimension(100, 30, 10), 3), 1)
+  order.addItem(new Item(2, "Amplificador", 5000, 10, new Dimension(50, 50, 50), 20), 1)
+  order.addItem(new Item(3, "Cabo", 30, 10, new Dimension(10, 10, 10), 1), 3)
   await orderRepository.save(order);
 
   const getOrderByCode = new GetOrderByCode(orderRepository);

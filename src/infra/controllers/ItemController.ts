@@ -1,4 +1,4 @@
-import GetItems from "@application/GetItems";
+import GetItems from "@application/usecases/GetItems";
 import ItemRepository from "@domain/repositories/ItemRepository";
 import Http, { OK_RESPONSE } from "@infra/http/Http";
 

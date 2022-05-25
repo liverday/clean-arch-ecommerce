@@ -1,4 +1,4 @@
-import ValidateCoupon from "@application/ValidateCoupon";
+import ValidateCoupon from "@application/usecases/ValidateCoupon";
 import Coupon from "@domain/entity/Coupon";
 import InMemoryCouponRepository from "@infra/repositories/memory/InMemoryCouponRepository"
 

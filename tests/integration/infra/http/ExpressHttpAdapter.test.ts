@@ -25,9 +25,9 @@ beforeEach(() => {
 });
 
 test('should respond /items', async () => {
-  await itemRepository.save(new Item(1, "Guitarra", 500, new Dimension(100, 30, 10), 10))
-  await itemRepository.save(new Item(2, "Amplificador", 5000, new Dimension(50, 50, 50), 20));
-  await itemRepository.save(new Item(3, "Cabo", 30, new Dimension(10, 10, 10), 1));
+  await itemRepository.save(new Item(1, "Guitarra", 500, 10, new Dimension(100, 30, 10), 10))
+  await itemRepository.save(new Item(2, "Amplificador", 5000, 10, new Dimension(50, 50, 50), 20));
+  await itemRepository.save(new Item(3, "Cabo", 30, 10, new Dimension(10, 10, 10), 1));
 
   const { status, body } = await request(http.app)
     .get("/items")
@@ -38,10 +38,10 @@ test('should respond /items', async () => {
 
 test('should respond /orders', async () => {
   const orderOne = new Order("44976087867");
-  orderOne.addItem(new Item(2, "Amplificador", 500, new Dimension(50, 50, 50)), 20);
+  orderOne.addItem(new Item(2, "Amplificador", 500, 10, new Dimension(50, 50, 50)), 20);
 
   const orderTwo = new Order("44976087867", new Date(), 2);
-  orderTwo.addItem(new Item(1, "Guitarra", 500, new Dimension(100, 30, 10)), 3);
+  orderTwo.addItem(new Item(1, "Guitarra", 500, 10, new Dimension(100, 30, 10)), 3);
   await orderRepository.save(orderOne);
   await orderRepository.save(orderTwo);
 
@@ -60,7 +60,7 @@ test('should respond /orders', async () => {
 
 test('should respond /orders/{code}', async () => {
   const orderOne = new Order("44976087867", new Date(), 1345);
-  orderOne.addItem(new Item(2, "Amplificador", 500, new Dimension(50, 50, 50)), 20);
+  orderOne.addItem(new Item(2, "Amplificador", 500, 10, new Dimension(50, 50, 50)), 20);
   await orderRepository.save(orderOne);
 
   const { status, body } = await request(http.app)
