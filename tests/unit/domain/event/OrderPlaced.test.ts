@@ -6,11 +6,11 @@ test('should create an OrderPlaced event', () => {
   const order = new Order('44976087867')
   order.addItem(new Item(1, 'Guitarra', 500, 1), 1);
   order.addItem(new Item(2, 'Cabo', 30, 1), 2);
-  const orderPlaced = new OrderPlaced(order.code, order.items, order.getFreight(), order.getTotal(), order.coupon);
+  const orderPlaced = new OrderPlaced(order);
 
-  expect(orderPlaced.code.code).toBe('202200000001');
-  expect(orderPlaced.freight).toBe(0);
+  expect(orderPlaced.order.code.code).toBe('202200000001');
+  expect(orderPlaced.order.getFreight()).toBe(0);
   expect(orderPlaced.name).toBe('OrderPlaced');
-  expect(orderPlaced.orderItems).toHaveLength(2);
-  expect(orderPlaced.total).toBe(560);
+  expect(orderPlaced.order.items).toHaveLength(2);
+  expect(orderPlaced.order.getTotal()).toBe(560);
 })

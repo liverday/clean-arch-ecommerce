@@ -27,7 +27,7 @@ export default class PlaceOrder {
 
 		const savedOrder = await this.orderRepository.save(order);
 		
-    await this.mediator.publish(new OrderPlaced(savedOrder.code, savedOrder.items, savedOrder.getFreight(), savedOrder.getTotal(), savedOrder.coupon));
+    await this.mediator.publish(new OrderPlaced(savedOrder));
 
     return {
       total: savedOrder.getTotal()

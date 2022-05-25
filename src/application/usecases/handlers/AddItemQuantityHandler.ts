@@ -1,17 +1,16 @@
+import StockEntry from "@domain/entity/StockEntry";
 import OrderPlaced from "@domain/event/OrderPlaced";
-import ItemRepository from "@domain/repositories/ItemRepository";
+import StockEntryRepository from "@domain/repositories/StockEntryRepository";
 import Handler from "./Handler";
 
 export default class AddItemQuantityHandler implements Handler {
   eventName: string = 'OrderCanceled';
 
-  constructor(private itemRepository: ItemRepository) {}
+  constructor(private stockEntryRepository: StockEntryRepository) {}
 
-  async handle({ orderItems }: OrderPlaced): Promise<void> {
-    for (const orderItem of orderItems) {
-      const item = await this.itemRepository.findById(orderItem.idItem);
-      item.addQuantity(orderItem.quantity);
-      await this.itemRepository.save(item);
+  async handle(event: OrderPlaced): Promise<void> {
+    for (const orderItem of event.order.items) {
+      await this.stockEntryRepository.save(new StockEntry(orderItem.idItem, 'in', orderItem.quantity));
     }
   }
   
