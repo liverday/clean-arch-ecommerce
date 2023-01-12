@@ -15,24 +15,24 @@ export default class PlaceOrder {
 
   async execute (input: Input): Promise<Output> {
     const sequence = await this.orderRepository.count();
-		const order = new Order(input.cpf, input.date, sequence);
-		for (const orderItem of input.orderItems) {
-			const item = await this.itemRepository.findById(orderItem.idItem);
-			order.addItem(item, orderItem.quantity);
-		}
+    const order = new Order(input.cpf, input.date, sequence);
+    for (const orderItem of input.orderItems) {
+	const item = await this.itemRepository.findById(orderItem.idItem);
+	order.addItem(item, orderItem.quantity);
+    }
     if (input.coupon) {
       const coupon = await this.couponRepository.findByCode(input.coupon);
       order.addCoupon(coupon);
     }
 
-		const savedOrder = await this.orderRepository.save(order);
+    const savedOrder = await this.orderRepository.save(order);
 		
     await this.mediator.publish(new OrderPlaced(savedOrder));
 
     return {
       total: savedOrder.getTotal()
     }
-	}
+  }
 }
 
 type InputOrderItem = { 
