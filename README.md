@@ -7,4 +7,4 @@
   <img src="https://github.com/liverday/clean-arch-ecommerce/actions/workflows/test.yml/badge.svg" alt="workflow-status">
 </div>
 
-A clean arch ecommerce developing during a course by [Rodrigo Branas](https://branas.io)
+A clean arch ecommerce developing during a course by [Rodrigo Branas](https://branas.io).
