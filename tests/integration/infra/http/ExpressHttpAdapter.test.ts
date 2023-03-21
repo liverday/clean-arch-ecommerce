@@ -37,10 +37,10 @@ test('should respond /items', async () => {
 })
 
 test('should respond /orders', async () => {
-  const orderOne = new Order("44976087867");
+  const orderOne = new Order("44976087867", new Date('2022-01-01T00:00:00.000'));
   orderOne.addItem(new Item(2, "Amplificador", 500, 10, new Dimension(50, 50, 50)), 20);
 
-  const orderTwo = new Order("44976087867", new Date(), 2);
+  const orderTwo = new Order("44976087867", new Date('2022-01-01T00:00:00.000'), 2);
   orderTwo.addItem(new Item(1, "Guitarra", 500, 10, new Dimension(100, 30, 10)), 3);
   await orderRepository.save(orderOne);
   await orderRepository.save(orderTwo);
@@ -59,7 +59,7 @@ test('should respond /orders', async () => {
 })
 
 test('should respond /orders/{code}', async () => {
-  const orderOne = new Order("44976087867", new Date(), 1345);
+  const orderOne = new Order("44976087867", new Date('2022-01-01T00:00:00.000'), 1345);
   orderOne.addItem(new Item(2, "Amplificador", 500, 10, new Dimension(50, 50, 50)), 20);
   await orderRepository.save(orderOne);
 

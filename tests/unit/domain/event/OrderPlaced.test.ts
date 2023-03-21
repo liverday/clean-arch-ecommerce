@@ -3,7 +3,7 @@ import Order from "@domain/entity/Order"
 import OrderPlaced from "@domain/event/OrderPlaced"
 
 test('should create an OrderPlaced event', () => {
-  const order = new Order('44976087867')
+  const order = new Order('44976087867', new Date('2022-01-01T00:00:00.000'))
   order.addItem(new Item(1, 'Guitarra', 500, 1), 1);
   order.addItem(new Item(2, 'Cabo', 30, 1), 2);
   const orderPlaced = new OrderPlaced(order);
