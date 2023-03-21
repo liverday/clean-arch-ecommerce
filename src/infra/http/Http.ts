@@ -22,3 +22,5 @@ export default interface Http {
 }
 
 export const OK_RESPONSE = 200
+
+export const CREATED_RESPONSE = 201

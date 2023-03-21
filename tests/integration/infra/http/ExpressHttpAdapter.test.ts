@@ -11,9 +11,13 @@ import Http from "@infra/http/Http";
 import InMemoryItemRepository from "@infra/repositories/memory/InMemoryItemRepository";
 import InMemoryOrderRepository from "@infra/repositories/memory/InMemoryOrderRepository";
 import Order from '@domain/entity/Order';
+import CouponRepository from '@domain/repositories/CouponRepository';
+import Mediator from '@infra/mediator/Mediator';
 
 let itemRepository: ItemRepository
 let orderRepository: OrderRepository
+let couponRepository: CouponRepository
+let mediator: Mediator
 let http: Http
 
 beforeEach(() => {
@@ -21,7 +25,13 @@ beforeEach(() => {
   itemRepository = new InMemoryItemRepository();
   orderRepository = new InMemoryOrderRepository();
   new ItemController(http, itemRepository);
-  new OrderController(http, orderRepository);
+  new OrderController(
+    http, 
+    orderRepository,
+    itemRepository,
+    couponRepository,
+    mediator
+  );
 });
 
 test('should respond /items', async () => {
