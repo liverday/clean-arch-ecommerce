@@ -4,7 +4,7 @@ import Item from "@domain/entity/Item";
 import Order from "@domain/entity/Order";
 
 test('Should not create an ordert wtih invalid CPF', () => {
-  expect(() => new Order('111.111.111-11', new Date(), 10)).toThrow(new Error('CPF Inválido'));
+  expect(() => new Order('111.111.111-11', new Date('2022-01-01T00:00:00.000'), 10)).toThrow(new Error('CPF Inválido'));
 });
 
 test('Should be able to create an Order with 3 items with description, price and quantity', () => {
