@@ -10,7 +10,5 @@ module.exports = {
   }),
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
-    "!<rootDir>/src/main.ts",
-    "!<rootDir>/src/infra/http/*.ts"
   ]
 };
